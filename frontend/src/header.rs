@@ -41,13 +41,13 @@ fn sitename_jp_svg() -> RawSvgEl<web_sys::SvgsvgElement> {
         .attr_signal("fill", theme::primary_text_color_hex())
 }
 
-fn sitename_en_svg() -> RawSvgEl<web_sys::SvgsvgElement> {
-    RawSvgEl::from_markup(include_str!("../../public/sitename_en.svg"))
-        .unwrap_throw()
-        .attr("width", "237")
-        .attr("height", "18")
-        .attr_signal("fill", theme::primary_text_color_hex())
-}
+// fn sitename_en_svg() -> RawSvgEl<web_sys::SvgsvgElement> {
+//     RawSvgEl::from_markup(include_str!("../../public/sitename_en.svg"))
+//         .unwrap_throw()
+//         .attr("width", "237")
+//         .attr("height", "18")
+//         .attr_signal("fill", theme::primary_text_color_hex())
+// }
 
 fn sitename_compact_svg() -> RawSvgEl<web_sys::SvgsvgElement> {
     RawSvgEl::from_markup(include_str!("../../public/sitename_compact.svg"))

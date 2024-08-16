@@ -11,7 +11,7 @@ use zoon::*;
 
 #[route]
 #[derive(Clone, Debug)]
-enum Route {
+pub enum Route {
     #[route()]
     Home,
     #[route("shaders")]

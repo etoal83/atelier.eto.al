@@ -7,6 +7,7 @@ use std::str::FromStr;
 use std::collections::VecDeque;
 use strum::{Display, EnumString, EnumIter, IntoEnumIterator};
 use wgpu::*;
+#[allow(unused_imports)]
 use zoon::{web_sys::HtmlCanvasElement, println, eprintln, *};
 
 
@@ -75,7 +76,7 @@ fn shader_page(slug: Slug) -> impl Element {
                     }
 
                     displayed_description.set(match shader_description.get_cloned() {
-                        Some(cms::ContentI18ned { ja, en }) => format!("{}\n", ja.clone()),
+                        Some(cms::ContentI18ned { ja, en: _ }) => format!("{}\n", ja.clone()),
                         _ => "".to_string(),
                     });
                     is_typing.set(false);
@@ -221,13 +222,6 @@ impl Slug {
         public_url(format!("shaders/thumbnail/{}.webp", self.to_string().to_snake_case()))
     }
 }
-
-// impl std::fmt::Display for Slug {
-//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-//         write!(f, "{:?}", self)
-//     }
-// }
-
 
 // ------ Shared by shader works ------
 

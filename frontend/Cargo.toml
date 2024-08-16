@@ -7,7 +7,7 @@ publish.workspace = true
 [dependencies]
 zoon.workspace = true
 anyhow = "1"
-bytemuck = { verison = "*", features = ["derive"] }
+bytemuck = { version = "*", features = ["derive"] }
 catppuccin = "*"
 gloo-net = { version ="0.4", features = ["http", "json"] }
 heck = "*"

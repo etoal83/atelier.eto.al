@@ -14,7 +14,7 @@ struct Vertex {
 }
 
 impl Vertex {
-    const ATTRIBS: [VertexAttribute; 1] = vertex_attr_array![0 => Float32x2];
+    // const ATTRIBS: [VertexAttribute; 1] = vertex_attr_array![0 => Float32x2];
 
     fn desc() -> VertexBufferLayout<'static> {
         VertexBufferLayout {

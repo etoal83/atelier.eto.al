@@ -1,5 +1,4 @@
-use catppuccin::{Color, ColorName, Flavor, Hsl, PALETTE};
-use hsluv::{hex_to_hsluv, hsluv_to_hex};
+use catppuccin::{ColorName, Flavor, PALETTE};
 use icondata::{ImCheckboxUnchecked, ImCheckboxChecked};
 use zoon::*;
 
@@ -67,6 +66,7 @@ fn checkbox_icon(checked_signal: MutableSignal<bool>) -> impl Element {
 macro_rules! assign_color {
     ($color:ident => $schema:ident) => {
         paste! {
+            #[allow(dead_code)]
             pub fn $color() -> impl Signal<Item = String> {
                 // Redirects to <$color _hex>() so signal item is temporarily `String`
                 // TODO: use MZ color system when it gets stable
