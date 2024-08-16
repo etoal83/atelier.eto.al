@@ -2,16 +2,18 @@ use moon::*;
 
 async fn frontend() -> Frontend {
     Frontend::new()
-        .title("New Project")
+        .title("atelier.eto.al")
         .append_to_head(include_str!("../favicon.html")) // realfavicongenerator.net
         .append_to_head(
             "
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&display=swap');
             html {
-                background-color: #181825;
+                background-color: #1e1e2e;
             }
         </style>",
         )
+        .body_content(r#"<div id="app"></div>"#)
 }
 
 async fn up_msg_handler(_: UpMsgRequest<()>) {}

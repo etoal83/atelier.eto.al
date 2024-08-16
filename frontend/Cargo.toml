@@ -6,7 +6,22 @@ publish.workspace = true
 
 [dependencies]
 zoon.workspace = true
-catppuccin = "1"
+anyhow = "1"
+bytemuck = { verison = "*", features = ["derive"] }
+catppuccin = "*"
+gloo-net = { version ="0.4", features = ["http", "json"] }
+heck = "*"
+icondata = "*"
+paste = "*"
 rust-hsluv = "0.1"
+scraper = "*"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+strum = { version = "*", features = ["derive"] }
+wgpu = { version = "0.20", features = ["webgl", "wgsl"], default-features = false }
+
+[dependencies.web-sys]
+version = "*"
+features = []
 
 [dev-dependencies]
