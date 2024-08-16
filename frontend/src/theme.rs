@@ -1,5 +1,5 @@
 use catppuccin::{ColorName, Flavor, PALETTE};
-use icondata::{ImCheckboxUnchecked, ImCheckboxChecked};
+use icondata::{RiMoonClearWeatherLine, RiSunWeatherLine};
 use zoon::*;
 
 // ------ Types ------
@@ -30,8 +30,8 @@ struct ToggleThemeClicked;
 pub static THEME: Lazy<Mutable<Theme>> = Lazy::new(|| {
     on(|ToggleThemeClicked| {
         THEME.update(|theme| match theme {
-            Theme::Light => { zoon::println!("Light => Dark"); Theme::Dark },
-            Theme::Dark => { zoon::println!("Dark => Light"); Theme::Light },
+            Theme::Light => Theme::Dark,
+            Theme::Dark => Theme::Light,
         })
     });
     Mutable::new(Theme::Dark)
@@ -42,6 +42,7 @@ pub static THEME: Lazy<Mutable<Theme>> = Lazy::new(|| {
 
 pub fn theme_toggle_switch() -> impl Element {
     Checkbox::new()
+        .update_raw_el(|el| el.style("margin-left", "auto"))
         .id("theme-toggle-switch")
         .label_hidden("Dark mode")
         .icon(|checked| checkbox_icon(checked.signal()))
@@ -50,13 +51,18 @@ pub fn theme_toggle_switch() -> impl Element {
 }
 
 fn checkbox_icon(checked_signal: MutableSignal<bool>) -> impl Element {
-    static CHECKED: &str = ImCheckboxChecked.data;
-    static UNCHECKED: &str = ImCheckboxUnchecked.data;
+    static CHECKED: &str = RiMoonClearWeatherLine.data;
+    static UNCHECKED: &str = RiSunWeatherLine.data;
 
     El::new()
-        .s(Width::exact(20))
-        .s(Height::exact(20))
+        .s(Width::exact(36))
+        .s(Height::exact(36))
+        .s(AlignContent::center())
+        .s(RoundedCorners::all(4))
         .child(RawSvgEl::new("svg")
+            .style("width", "24px")
+            .attr("viewBox", "0 0 24 24")
+            // .attr("preserveAspectRatio", "xMidYMid")
             .attr_signal("fill", primary_text_color_hex())
             .inner_markup_signal(checked_signal.map_bool(|| CHECKED, || UNCHECKED)))
 }

@@ -4,8 +4,9 @@ use crate::{theme, SCREEN_WIDTH};
 
 pub fn header() -> impl Element {
     Row::with_tag(Tag::Header)
+        .s(Width::fill())
         .s(Height::exact(80)) // or 64
-        .s(Align::new().left())
+        .s(Align::new().left().center_y())
         .item(logo())
         .item(theme::theme_toggle_switch())
 }
