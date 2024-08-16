@@ -1,7 +1,7 @@
 mod base;
 
-use crate::{cms, theme};
-use heck::{ToUpperCamelCase, ToKebabCase, ToSnakeCase, ToTitleCase};
+use crate::{cms, theme, mobile_layout_signal};
+use heck::{ToUpperCamelCase, ToSnakeCase, ToTitleCase};
 use std::{clone, cmp::max};
 use std::str::FromStr;
 use std::collections::VecDeque;
@@ -101,7 +101,7 @@ fn shader_page(slug: Slug) -> impl Element {
 
     Column::new()
         .s(Width::fill())
-        .s(Padding::new().x(16))
+        .s(Padding::new().x_signal(mobile_layout_signal().map_bool(|| 0, || 16)))
         .s(Gap::new().y(20))
         .item(Canvas::new()
             .width(300)
