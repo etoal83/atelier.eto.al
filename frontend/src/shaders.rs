@@ -2,7 +2,7 @@ mod base;
 
 use crate::{cms, theme, mobile_layout_signal};
 use heck::{ToUpperCamelCase, ToSnakeCase, ToTitleCase};
-use std::{clone, cmp::max};
+use std::cmp::max;
 use std::str::FromStr;
 use std::collections::VecDeque;
 use strum::{Display, EnumString, EnumIter, IntoEnumIterator};
@@ -53,8 +53,19 @@ fn shader_page(slug: Slug) -> impl Element {
     let (shader_title, title_signal) = Mutable::new_and_signal_cloned("Loading...".to_string());
     let shader_description: Mutable<Option<cms::ContentI18ned>> = Mutable::new(None);
     let description_buffer: Mutable<String> = Mutable::new("".to_string());
-    let (displayed_description, displayed_description_signal) = Mutable::new_and_signal_cloned("...".to_string());
+    let (displayed_description, displayed_description_signal) = Mutable::new_and_signal_cloned("".to_string());
     let (is_typing, is_typing_signal) = Mutable::new_and_signal(false);
+    let blink_oscillator = Oscillator::new(Duration::seconds(1));
+    blink_oscillator.cycle_wrap();
+    let blinking_color_signal = map_ref! {
+        let theme = theme::THEME.signal(),
+        let oscillator = blink_oscillator.signal() => {
+            match theme {
+                theme::Theme::Light => if *oscillator > 0.5 { theme::light_primary_text_color() } else { theme::light_primary_background_color() },
+                theme::Theme::Dark => if *oscillator > 0.5 { theme::dark_primary_text_color() } else { theme::dark_primary_background_color() },
+            }
+        }
+    };
 
     run_once!(|| {
         global_styles()
@@ -137,26 +148,19 @@ fn shader_page(slug: Slug) -> impl Element {
                 .update_raw_el(clone!((is_typing) |el| el.inner_markup_signal(is_typing.signal().map_bool(|| "//", || "")))),
             El::new()
                 .s(Height::exact(40))
-                .s(Borders::all_signal(theme::THEME.signal().map(|theme| match theme {
-                    theme::Theme::Light => Border::new().color("#4c4f69"),
-                    theme::Theme::Dark => Border::new().color("#cdd6f4"),
-                })))
+                .s(Borders::all_signal(map_ref! {
+                    let theme = theme::THEME.signal(),
+                    let oscillator = blink_oscillator.signal() => {
+                        match theme {
+                            theme::Theme::Light => if *oscillator > 0.5 { Border::new().color(theme::light_primary_text_color()) } else { Border::new().color(theme::light_primary_background_color()) },
+                            theme::Theme::Dark => if *oscillator > 0.5 { Border::new().color(theme::dark_primary_text_color()) } else { Border::new().color(theme::dark_primary_background_color()) },
+                        }
+                    }
+                }))
                 .s(RoundedCorners::all(2))
-                .s(Font::new().size(12))
+                .s(Font::new().size(12).color_signal(blinking_color_signal))
                 .update_raw_el(|el| el.inner_markup_signal(is_typing_signal.map_bool(|| "", || " ⏎ "))),
-        ]))
-}
-
-fn markup_to_chars(markup: String) -> VecDeque<char> {
-    let frag = scraper::Html::parse_document(&markup);
-    let mut plain = String::new();
-    for node in frag.tree {
-        if let scraper::node::Node::Text(text) = node {
-            plain.push_str(&text.text);
-        }
-    }
-
-    VecDeque::from_iter(plain.chars())
+        ])).after_remove(move |_| drop(blink_oscillator))
 }
 
 fn markup_to_string(markup: String) -> String {

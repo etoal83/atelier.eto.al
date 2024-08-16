@@ -84,6 +84,14 @@ macro_rules! assign_color {
                     hex.to_string()
                 })
             }
+
+            pub fn [<dark_ $color>]() -> String {
+                PALETTE.mocha.get_color(ColorName::$schema).hex.to_string()
+            }
+
+            pub fn [<light_ $color>]() -> String {
+                PALETTE.latte.get_color(ColorName::$schema).hex.to_string()
+            }
         }
     };
 }
