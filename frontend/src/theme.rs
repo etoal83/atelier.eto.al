@@ -62,7 +62,6 @@ fn checkbox_icon(checked_signal: MutableSignal<bool>) -> impl Element {
         .child(RawSvgEl::new("svg")
             .style("width", "24px")
             .attr("viewBox", "0 0 24 24")
-            // .attr("preserveAspectRatio", "xMidYMid")
             .attr_signal("fill", primary_text_color_hex())
             .inner_markup_signal(checked_signal.map_bool(|| CHECKED, || UNCHECKED)))
 }
@@ -91,10 +90,12 @@ macro_rules! assign_color {
                 })
             }
 
+            #[allow(dead_code)]
             pub fn [<dark_ $color>]() -> String {
                 PALETTE.mocha.get_color(ColorName::$schema).hex.to_string()
             }
 
+            #[allow(dead_code)]
             pub fn [<light_ $color>]() -> String {
                 PALETTE.latte.get_color(ColorName::$schema).hex.to_string()
             }
