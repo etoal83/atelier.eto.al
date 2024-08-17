@@ -48,7 +48,7 @@ fn mobile_layout_signal() -> impl Signal<Item = bool> {
 fn root() -> impl Element {
     Stack::new()
         .s(Width::fill())
-        .s(Height::screen())
+        .s(Height::growable())
         .s(Font::new()
             .family([
                 FontFamily::new("Murecho"),
