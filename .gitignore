@@ -10,11 +10,7 @@ mz/frontend_dist/
 .env
 frontend/archive
 
-node_modules/
-elm-stuff/
-dist/
+.astro/
 .cache/
-gen/
-.elm-pages
-functions/server-render
-functions/render
+dist/
+node_modules/
