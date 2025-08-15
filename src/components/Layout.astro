@@ -1,0 +1,27 @@
+---
+import '../styles/global.css';
+import Header from './Header.astro';
+---
+
+<div class="layout-container">
+  <Header />
+  <slot />
+</div>
+
+<style>
+  .layout-container {
+    display: inline-flex;
+    flex-direction: column;
+    justify-self: center;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    padding: 0 16px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .layout-container {
+      padding: 0 40px;
+    }
+  }
+</style>
