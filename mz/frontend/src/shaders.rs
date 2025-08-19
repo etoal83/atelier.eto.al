@@ -1,4 +1,5 @@
 mod base;
+mod editor;
 
 use crate::{cms, theme, mobile_layout_signal};
 use heck::{ToUpperCamelCase, ToSnakeCase, ToTitleCase};
@@ -50,7 +51,7 @@ fn shader_gallery() -> impl Element {
 // /shaders/{slug}
 fn shader_page(slug: Slug) -> impl Element {
     let content_id = slug.to_string();
-    let (shader_title, title_signal) = Mutable::new_and_signal_cloned("Loading...".to_string());
+    let (shader_title, title_signal) = Mutable::new_and_signal_cloned("...".to_string());
     let shader_description: Mutable<Option<cms::ContentI18ned>> = Mutable::new(None);
     let description_buffer: Mutable<String> = Mutable::new("".to_string());
     let (displayed_description, displayed_description_signal) = Mutable::new_and_signal_cloned("".to_string());
@@ -209,6 +210,7 @@ shader_mod! {
         HelloTriangle,
         HelloTriangleWithVertexBuffer,
         GlslsandboxExample,
+        AtFieldTvanimeVer,
         // *** Add new shaders here ***
     }
 }

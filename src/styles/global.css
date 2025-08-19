@@ -1,0 +1,80 @@
+/* light mode palette */
+[data-theme="light"] {
+  color-scheme: light;
+  --color-bg: #F0F2F6;
+  --color-surface: #DFE3EA;
+
+  /* Text variants */
+  --color-text: #2D3142;
+  --color-text-muted: #6c7489;
+  --color-text-inverse: #e2e4ec;
+
+  /* Semantic colors */
+  --color-primary: #4062BB;
+  --color-secondary: #52A49A;
+  --color-accent: #FFBF3C;
+  --color-accent-sub: #F26D78;
+
+  /* State colors */
+  --color-success: #4CAF50;
+  --color-warning: #FF9800;
+  --color-error: #E53935;
+  --color-info: #2196F3;
+
+  
+  /* Border and divider */
+  --color-border: #c4c9d4;
+  --color-divider: #e8eaef;
+
+  /* Interactive states */
+  --color-hover-bg: rgba(64, 98, 187, 0.1);
+  --color-active-bg: rgba(64, 98, 187, 0.2);
+}
+
+/* dark mode palette */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #1A1D2A;
+  --color-surface: #262B3D;
+
+  /* Text variants */
+  --color-text: #E2E4EC;
+  --color-text-muted: #9ca3b8;
+  --color-text-inverse: #2d3142;
+
+  /* Semantic colors */
+  --color-primary: #7087DC;
+  --color-secondary: #6DBEAC;
+  --color-accent: #FFD566;
+  --color-accent-sub: #FF8C97;
+
+  /* State colors */
+  --color-success: #66BB6A;
+  --color-warning: #FFA726;
+  --color-error: #EF5350;
+  --color-info: #42A5F5;
+
+  /* Border and divider */
+  --color-border: #3c4355;
+  --color-divider: #2f3446;
+
+  /* Interactive states */
+  --color-hover-bg: rgba(112, 135, 220, 0.15);
+  --color-active-bg: rgba(112, 135, 220, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: inline-grid;
+  grid-auto-columns: minmax(0, auto);
+  grid-auto-rows: minmax(0, auto);
+  width: 100%;
+  position: relative;
+  height: auto;
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
